@@ -12,6 +12,9 @@ export class RacunController {
     public async all(request: Request, response: Response, next: NextFunction) {
         return await this.racunRepository.find();
     }
+    public async one(request: Request, response: Response, next: NextFunction) {
+        return await this.racunRepository.findOne(request.params.id);
+    }
     public async create(request: Request, response: Response, next: NextFunction) {
         const user = (request.session as any).user as User | undefined;
         if (!user || !user.odobren) {

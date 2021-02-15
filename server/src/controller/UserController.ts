@@ -1,7 +1,6 @@
 import { getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/User";
-import { Http2ServerResponse } from "http2";
 
 const userDTO = (user: User) => {
     if (!user) {
@@ -14,6 +13,7 @@ const userDTO = (user: User) => {
         lastName: user.lastName,
         age: user.age,
         username: user.username,
+        odobren: user.odobren
     }
 }
 export class UserController {
@@ -22,6 +22,7 @@ export class UserController {
 
     async check(request: Request, response: Response, next: NextFunction) {
         const user = (request.session as any).user as User | undefined;
+
         if (!user || !user.odobren) {
             response.status(400);
             return '';
@@ -61,8 +62,8 @@ export class UserController {
         }
         (request.session as any).user = user;
         request.session.save((err) => { console.log(err); response.status(500); });
-        console.log((request.session as any).user);
-        return user;
+
+        return userDTO(user);
     }
     async verify(request: Request, response: Response, next: NextFunction) {
         const user = await this.userRepository.findOne({
@@ -83,5 +84,14 @@ export class UserController {
         })
         return '';
     }
+    async all(request: Request, response: Response, next: NextFunction) {
+        const user = (request.session as any).user as User | undefined;
+        console.log(user);
+        if (!user || !user.odobren) {
+            response.status(400);
+            return '';
 
+        }
+        return (await this.userRepository.find()).map(element => userDTO(element));
+    }
 }

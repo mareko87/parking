@@ -3,12 +3,18 @@ import { ParkiralisteController } from "./controller/ParkiralisteController";
 import { RacunController } from "./controller/RacunController";
 import { UserController } from "./controller/UserController";
 import { VoziloController } from "./controller/VoziloController";
+import { VremeController } from "./controller/VremeController";
 
 export const Routes = [{
-    method: "post",
+    method: "get",
+    route: "/user",
+    controller: UserController,
+    action: "all"
+}, {
+    method: "get",
     route: "/check",
     controller: UserController,
-    action: "one"
+    action: "check"
 }, {
     method: "post",
     route: "/register",
@@ -34,6 +40,11 @@ export const Routes = [{
     route: "/racun",
     controller: RacunController,
     action: "all"
+}, {
+    method: "get",
+    route: "/racun/:id",
+    controller: RacunController,
+    action: "one"
 }, {
     method: "post",
     route: "/racun",
@@ -67,7 +78,7 @@ export const Routes = [{
 }, {
     method: "get",
     route: "/boravak",
-    controller: RacunController,
+    controller: BoravakController,
     action: "all"
 }, {
     method: "post",
@@ -79,4 +90,9 @@ export const Routes = [{
     route: "/boravak",
     controller: BoravakController,
     action: "create"
+}, {
+    method: "get",
+    route: "/vreme",
+    controller: VremeController,
+    action: "vreme"
 }];

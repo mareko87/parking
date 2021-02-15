@@ -7,21 +7,21 @@ import Vozilo from "./Vozilo";
 export default class Boravak {
 
 
-    @Column()
+    @Column({ primary: true })
     vremeUlaska: Date
-    @Column()
+    @Column({ nullable: true })
     vremeIzlaska: Date | undefined
 
 
     @Column()
     placen: boolean
 
-    @ManyToOne(type => Parkiraliste, { eager: true, primary: true, onDelete: 'CASCADE' })
+    @ManyToOne(type => Parkiraliste, p => p.boravci, { eager: true, primary: true, onDelete: 'CASCADE' })
     parkiraliste: Parkiraliste
 
     @ManyToOne(type => Vozilo, { eager: true, primary: true })
     vozilo: Vozilo
 
-    @ManyToOne(type => Racun)
+    @ManyToOne(type => Racun, { eager: true, nullable: true })
     racun?: Racun;
 }
