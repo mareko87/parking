@@ -33,9 +33,15 @@ createConnection().then(async connection => {
             secure: true,
             maxAge: 1000 * 60 * 10,//10min
             httpOnly: true,
+            sameSite: "none"
         }
 
     }))
+
+    app.use((rec, res, next) => {
+        console.log(rec.session);
+        next();
+    })
     // register express routes from defined application routes
     Routes.forEach(route => {
         (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {

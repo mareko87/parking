@@ -7,7 +7,7 @@ const userDTO = (user: User) => {
         return '';
     }
     return {
-        category: user.category.value,
+        category: user.category?.value || "user",
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -61,7 +61,6 @@ export class UserController {
             return '';
         }
         (request.session as any).user = user;
-        request.session.save((err) => { console.log(err); response.status(500); });
 
         return userDTO(user);
     }

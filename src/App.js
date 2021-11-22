@@ -11,6 +11,7 @@ import Racun from './components/Racun';
 import RacunForma from './components/RacunForma';
 import Register from './components/Register';
 import { serverLocation } from './constants';
+axios.defaults.withCredentials = true;
 
 function App() {
 

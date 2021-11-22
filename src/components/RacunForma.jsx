@@ -18,9 +18,11 @@ export default withRouter(function RacunForma(props) {
             const borData = await (await axios.get(serverLocation + '/boravak')).data;
             setBoravci(borData);
             console.log(props);
+            console.log(borData);
             if (props.match.params.id != 0) {
                 const racunData = (await axios.get(serverLocation + '/racun/' + props.match.params.id)).data;
                 setRacun(racunData);
+                console.log(racunData);
             }
         }
 
