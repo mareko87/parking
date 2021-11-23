@@ -26,7 +26,15 @@ export class RacunController {
         const insertResult = await this.racunRepository.insert({ ...rest, user: user });
         const racun = await insertResult.identifiers[0].id;
         for (let boravak of boravci) {
-            await this.boravakRepository.update(boravak, { placen: true, racun: racun });
+            await this.boravakRepository.update({
+                vremeUlaska: new Date(boravak.vremeUlaska),
+                parkiraliste: {
+                    id: boravak.parkiraliste.id
+                },
+                vozilo: {
+                    id: boravak.vozilo.id
+                }
+            }, { placen: true, racun: racun });
         }
         return racun
     }
